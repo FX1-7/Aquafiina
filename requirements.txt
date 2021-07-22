@@ -1,0 +1,8 @@
+discord.py
+python-dotenv
+motor
+pyyaml
+psutil
+dnspython
+pymongo
+Pillow
