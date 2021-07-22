@@ -45,8 +45,6 @@ for filename in os.listdir('./cogs'):
 
 @bot.event
 async def on_ready():
-    # Connect to db
-    #bot.mongo = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://Keiran:0DuLzb9Cs84DLhPX@cluster0.a5ymt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
     # Print startup message
     startup = bot.user.name + " is running"
     print(startup)
