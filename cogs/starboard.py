@@ -15,7 +15,7 @@ class Starboard(commands.Cog):
             channel = self.bot.get_channel(payload.channel_id)
             message = await channel.fetch_message(payload.message_id)
             reaction = get(message.reactions, emoji=payload.emoji.name)
-            if reaction and reaction.count > 0:
+            if reaction and reaction.count > 6:
                 print(reaction, reaction.count)
                 em = discord.Embed(colour=MAIN,
                                    description=f"{message.content}")

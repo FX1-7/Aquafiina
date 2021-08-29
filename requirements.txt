@@ -6,3 +6,5 @@ psutil
 dnspython
 pymongo
 Pillow
+tweepy
+regex
