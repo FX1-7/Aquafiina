@@ -30,7 +30,7 @@ class Bot(commands.Bot):
 
 
 intents = discord.Intents(guild_messages=True, guilds=True, members=True, guild_reactions=True)
-bot = Bot(command_prefix=PREFIX, case_insensitive=True, owner_ids=[690470394972340244, 114352655857483782],
+bot = Bot(command_prefix=PREFIX, case_insensitive=True, owner_ids=[114352655857483782],
           allowed_mentions=discord.AllowedMentions(roles=False, everyone=False), intents=intents,
           chunk_guilds_at_startup=False)
 
