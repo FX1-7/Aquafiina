@@ -66,7 +66,7 @@ class Twitter(commands.Cog):
                 print("Added Tweet ID to list")
                 em = discord.Embed(description=f"{TweetText}", colour=BLUE)
                 em.set_author(name=f"{ScreenName.name}", url=f"https://twitter.com/{userID}/status/{TweetID}", icon_url=PfpLink)
-                em.set_footer(icon_url="https://abs.twimg.com/icons/apple-touch-icon-192x192.png")
+                em.set_footer(text="‎", icon_url="https://abs.twimg.com/icons/apple-touch-icon-192x192.png")
                 em.timestamp = dt.datetime.utcnow()
                 await channel.send(f"@{userID} tweeted, check it out here: https://twitter.com/{userID}/status/{TweetID}", embed=em)
 
