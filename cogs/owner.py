@@ -3,7 +3,6 @@ from discord.ext import commands
 import ast
 import copy
 from utils.utils import *
-from utils.mongo import *
 from config import *
 import re
 import datetime as dt
