@@ -70,7 +70,7 @@ class Twitter(commands.Cog):
                 LatestTweets.append(TweetID)
                 print("Added Tweet ID to list")
                 em = discord.Embed(description=f"{TweetText}", colour=BLUE)
-                em.set_author(name=f"{ScreenName.name}", url=f"https://twitter.com/Keiran1712/status/{userID}",
+                em.set_author(name=f"{ScreenName.name}", url=f"https://twitter.com/{userID}/status/{userID}",
                               icon_url=PfpLink)
                 em.set_footer(text="‎",
                               icon_url="https://abs.twimg.com/icons/apple-touch-icon-192x192.png")
