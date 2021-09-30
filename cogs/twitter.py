@@ -49,9 +49,15 @@ class Twitter(commands.Cog):
         tweets = api.user_timeline(screen_name=userID, count=200, include_rts=False, tweet_mode="extended",
                                    exclude_replies=True)
         for info in tweets[:10]:
-            TweetID = info.id
-            ScreenName = info.user
-            TweetText = info.full_text
+            try:
+                TweetID = info.id
+                ScreenName = info.user
+                CreatedTime = info.created_at
+                TweetText = info.full_text
+                Media = info.extended_entities
+                Pic = Media["media"][0]["media_url_https"]
+            except:
+                pass
             for k, v in html_escape_table.items():
                 if v in TweetText:
                     TweetText = TweetText.replace(v, k)
@@ -64,10 +70,14 @@ class Twitter(commands.Cog):
                 LatestTweets.append(TweetID)
                 print("Added Tweet ID to list")
                 em = discord.Embed(description=f"{TweetText}", colour=BLUE)
-                em.set_author(name=f"{ScreenName.name}", url=f"https://twitter.com/{userID}/status/{TweetID}", icon_url=PfpLink)
-                em.set_footer(text="‎", icon_url="https://abs.twimg.com/icons/apple-touch-icon-192x192.png")
+                em.set_author(name=f"{ScreenName.name}", url=f"https://twitter.com/Keiran1712/status/{userID}",
+                              icon_url=PfpLink)
+                em.set_footer(text="‎",
+                              icon_url="https://abs.twimg.com/icons/apple-touch-icon-192x192.png")
+                em.set_image(url=Pic)
                 em.timestamp = dt.datetime.utcnow()
-                await channel.send(f"@{userID} tweeted, check it out here: https://twitter.com/{userID}/status/{TweetID}", embed=em)
+                await channel.send(
+                    f"@{userID} posted a tweet, check it out: https://twitter.com/{userID}/status/{TweetID}", embed=em)
 
 
 
