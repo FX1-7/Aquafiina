@@ -78,7 +78,7 @@ class Twitter(commands.Cog):
                 em.set_image(url=Pic)
                 em.timestamp = dt.datetime.utcnow()
                 await channel.send(
-                    "@{userID} posted a tweet, check it out: https://twitter.com/{userID}/status/{TweetID}", embed=em)
+                    f"@{userID} posted a tweet, check it out: https://twitter.com/{userID}/status/{TweetID}", embed=em)
 
 
 
