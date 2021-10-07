@@ -57,6 +57,7 @@ class Twitter(commands.Cog):
                 Media = info.extended_entities
                 Pic = Media["media"][0]["media_url_https"]
             except:
+                Pic = None
                 pass
             for k, v in html_escape_table.items():
                 if v in TweetText:
@@ -74,13 +75,10 @@ class Twitter(commands.Cog):
                               icon_url=PfpLink)
                 em.set_footer(text="‎",
                               icon_url="https://abs.twimg.com/icons/apple-touch-icon-192x192.png")
-                if len(Pic) >= 8:
-                    em.set_image(url=Pic)
-                else:
-                    return
+                em.set_image(url=Pic)
                 em.timestamp = dt.datetime.utcnow()
                 await channel.send(
-                    f"@{userID} posted a tweet, check it out: https://twitter.com/{userID}/status/{TweetID}", embed=em)
+                    "@{userID} posted a tweet, check it out: https://twitter.com/{userID}/status/{TweetID}", embed=em)
 
 
 
