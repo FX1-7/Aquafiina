@@ -74,7 +74,10 @@ class Twitter(commands.Cog):
                               icon_url=PfpLink)
                 em.set_footer(text="‎",
                               icon_url="https://abs.twimg.com/icons/apple-touch-icon-192x192.png")
-                em.set_image(url=Pic)
+                if len(Pic) >= 8:
+                    em.set_image(url=Pic)
+                else:
+                    return
                 em.timestamp = dt.datetime.utcnow()
                 await channel.send(
                     f"@{userID} posted a tweet, check it out: https://twitter.com/{userID}/status/{TweetID}", embed=em)
