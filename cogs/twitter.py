@@ -57,7 +57,7 @@ class Twitter(commands.Cog):
                 Media = info.extended_entities
                 Pic = Media["media"][0]["media_url_https"]
             except:
-                Pic = ""
+                Pic = discord.Embed.Empty
                 pass
             for k, v in html_escape_table.items():
                 if v in TweetText:
