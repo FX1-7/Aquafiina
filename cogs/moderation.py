@@ -35,10 +35,12 @@ class moderation(commands.Cog):
                Ban a user for a period of time
                Time must be a number followed by either m for minutes, h for hours or d for days or s for seconds
         """
-
-        rex = re.match(r"(\d+) ?([smdh])", time.lower())
-        if not rex:  # if no match
-            raise commands.BadArgument
+        if time == 0:
+            pass
+        else:
+            rex = re.match(r"(\d+) ?([smdh])", time.lower())
+            if not rex:  # if no match
+                raise commands.BadArgument
 
         value = int(rex.group(1))
         unit = rex.group(2)
