@@ -36,26 +36,28 @@ class moderation(commands.Cog):
                Time must be a number followed by either m for minutes, h for hours or d for days or s for seconds
         """
         if time == 0:
+            value = 0
+            unit = "Permanent"
             pass
         else:
             rex = re.match(r"(\d+) ?([smdh])", time.lower())
             if not rex:  # if no match
                 raise commands.BadArgument
 
-        value = int(rex.group(1))
-        unit = rex.group(2)
-        if unit == "m":
-            value = value * 60  # convert to seconds
-            unit = "minutes"
-        elif unit == "h":
-            value = value * 60 * 60  # convert to seconds
-            unit = "hours"
-        elif unit == "d":
-            value = value * 60 * 60 * 24  # convert to seconds
-            unit = "days"
-        elif unit == "s":
-            value = value
-            unit = "seconds"
+            value = int(rex.group(1))
+            unit = rex.group(2)
+            if unit == "m":
+                value = value * 60  # convert to seconds
+                unit = "minutes"
+            elif unit == "h":
+                value = value * 60 * 60  # convert to seconds
+                unit = "hours"
+            elif unit == "d":
+                value = value * 60 * 60 * 24  # convert to seconds
+                unit = "days"
+            elif unit == "s":
+                value = value
+                unit = "seconds"
 
         if isinstance(user, int):
             person = self.bot.get_user(user)
@@ -63,7 +65,7 @@ class moderation(commands.Cog):
             await ctx.message.delete(delay=5)
             em = discord.Embed(colour=RED, title="User has been kicked!",
                                description=f"{person.mention} has been banned from the server by {ctx.author.mention}"
-                                           f"for **'{reason}'** for {rex.group(1)} {unit}!")
+                                           f"for **'{reason}'** for {value} {unit}!")
             em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
             em.set_thumbnail(url=ctx.guild.icon_url)
             em.timestamp = dt.datetime.utcnow()
@@ -79,7 +81,7 @@ class moderation(commands.Cog):
 
             em = discord.Embed(colour=RED, title="User has been kicked!",
                            description=f"{user.mention} has been banned from the server by {ctx.author.mention}"
-                                       f"for **'{reason}'** for {rex.group(1)} {unit}!")
+                                       f"for **'{reason}'** for {value} {unit}!")
             em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
             em.set_thumbnail(url=ctx.guild.icon_url)
             em.timestamp = dt.datetime.utcnow()
