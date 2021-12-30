@@ -65,7 +65,7 @@ class moderation(commands.Cog):
         await ctx.send(embed=em)
 
         if value == 0:
-            return
+            await ctx.guild.ban(user, reason=reason)
         else:
             await sleep(value)  # wait for the specified time
             await ctx.guild.unban(user, reason="Timed unban")  # unban
