@@ -6,6 +6,7 @@ from asyncio import sleep
 import re
 from config import GREEN, RED, MUTED
 import datetime as dt
+from typing import Union
 
 class moderation(commands.Cog):
     def __init__(self, bot):
@@ -29,7 +30,7 @@ class moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, user: discord.Member, time, *, reason="Not set"):
+    async def ban(self, ctx, user: Union[discord.Member, int], time, *, reason="Not set"):
         """
                Ban a user for a period of time
                Time must be a number followed by either m for minutes, h for hours or d for days or s for seconds
@@ -53,22 +54,40 @@ class moderation(commands.Cog):
         elif unit == "s":
             value = value
             unit = "seconds"
-        await ctx.guild.ban(user, reason=reason)
-        await ctx.message.delete(delay=5)
 
-        em = discord.Embed(colour=RED, title="User has been kicked!",
+        if isinstance(user, int):
+            person = self.bot.get_user(user)
+            await ctx.guild.ban(person, reason=reason)
+            await ctx.message.delete(delay=5)
+            em = discord.Embed(colour=RED, title="User has been kicked!",
+                               description=f"{person.mention} has been banned from the server by {ctx.author.mention}"
+                                           f"for **'{reason}'** for {rex.group(1)} {unit}!")
+            em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+            em.set_thumbnail(url=ctx.guild.icon_url)
+            em.timestamp = dt.datetime.utcnow()
+            await ctx.send(embed=em)
+            if value == 0:
+                await ctx.guild.ban(person, reason=reason)
+            else:
+                await sleep(value) # wait for the specified time
+                await ctx.guild.unban(person, reason="Timed unban") # unban
+        else:
+            await ctx.guild.ban(user, reason=reason)
+            await ctx.message.delete(delay=5)
+
+            em = discord.Embed(colour=RED, title="User has been kicked!",
                            description=f"{user.mention} has been banned from the server by {ctx.author.mention}"
                                        f"for **'{reason}'** for {rex.group(1)} {unit}!")
-        em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-        em.set_thumbnail(url=ctx.guild.icon_url)
-        em.timestamp = dt.datetime.utcnow()
-        await ctx.send(embed=em)
+            em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+            em.set_thumbnail(url=ctx.guild.icon_url)
+            em.timestamp = dt.datetime.utcnow()
+            await ctx.send(embed=em)
 
-        if value == 0:
-            await ctx.guild.ban(user, reason=reason)
-        else:
-            await sleep(value)  # wait for the specified time
-            await ctx.guild.unban(user, reason="Timed unban")  # unban
+            if value == 0:
+                await ctx.guild.ban(user, reason=reason)
+            else:
+                await sleep(value)  # wait for the specified time
+                await ctx.guild.unban(user, reason="Timed unban")  # unban
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
