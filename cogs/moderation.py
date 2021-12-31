@@ -35,7 +35,7 @@ class moderation(commands.Cog):
                Ban a user for a period of time
                Time must be a number followed by either m for minutes, h for hours or d for days or s for seconds
         """
-        if time == 0:
+        if time == "0":
             value = 0
             unit = "Permanent"
             pass
@@ -60,10 +60,10 @@ class moderation(commands.Cog):
                 unit = "seconds"
 
         if isinstance(user, int):
-            person = self.bot.get_user(user)
+            person = self.bot.fetch_user(user)
             await ctx.guild.ban(person, reason=reason)
             await ctx.message.delete(delay=5)
-            em = discord.Embed(colour=RED, title="User has been kicked!",
+            em = discord.Embed(colour=RED, title="User has been banned!",
                                description=f"{person.mention} has been banned from the server by {ctx.author.mention}"
                                            f"for **'{reason}'** for {value} {unit}!")
             em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
@@ -71,7 +71,7 @@ class moderation(commands.Cog):
             em.timestamp = dt.datetime.utcnow()
             await ctx.send(embed=em)
             if value == 0:
-                await ctx.guild.ban(person, reason=reason)
+                return
             else:
                 await sleep(value) # wait for the specified time
                 await ctx.guild.unban(person, reason="Timed unban") # unban
@@ -79,7 +79,7 @@ class moderation(commands.Cog):
             await ctx.guild.ban(user, reason=reason)
             await ctx.message.delete(delay=5)
 
-            em = discord.Embed(colour=RED, title="User has been kicked!",
+            em = discord.Embed(colour=RED, title="User has been banned!",
                            description=f"{user.mention} has been banned from the server by {ctx.author.mention}"
                                        f"for **'{reason}'** for {value} {unit}!")
             em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
