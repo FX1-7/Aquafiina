@@ -63,13 +63,22 @@ class moderation(commands.Cog):
             person = await self.bot.fetch_user(user)
             await ctx.guild.ban(person, reason=reason)
             await ctx.message.delete(delay=5)
-            em = discord.Embed(colour=RED, title="User has been banned!",
-                               description=f"{person.mention} has been banned from the server by {ctx.author.mention}"
-                                           f"for **'{reason}'** for {value} {unit}!")
-            em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-            em.set_thumbnail(url=ctx.guild.icon_url)
-            em.timestamp = dt.datetime.utcnow()
-            await ctx.send(embed=em)
+            if value > 0:
+                em = discord.Embed(colour=RED, title="User has been banned!",
+                                   description=f"{person.mention} has been banned from the server by {ctx.author.mention}"
+                                               f" for **'{reason}'** for {value} {unit}!")
+                em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+                em.set_thumbnail(url=ctx.guild.icon_url)
+                em.timestamp = dt.datetime.utcnow()
+                await ctx.send(embed=em)
+            else:
+                em = discord.Embed(colour=RED, title="User has been banned!",
+                                   description=f"{person.mention} has been banned from the server by {ctx.author.mention}"
+                                               f" **Permanently!**")
+                em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+                em.set_thumbnail(url=ctx.guild.icon_url)
+                em.timestamp = dt.datetime.utcnow()
+                await ctx.send(embed=em)
             if value == 0:
                 return
             else:
@@ -79,14 +88,22 @@ class moderation(commands.Cog):
             await ctx.guild.ban(user, reason=reason)
             await ctx.message.delete(delay=5)
 
-            em = discord.Embed(colour=RED, title="User has been banned!",
-                           description=f"{user.mention} has been banned from the server by {ctx.author.mention}"
-                                       f"for **'{reason}'** for {value} {unit}!")
-            em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-            em.set_thumbnail(url=ctx.guild.icon_url)
-            em.timestamp = dt.datetime.utcnow()
-            await ctx.send(embed=em)
-
+            if value > 0:
+                em = discord.Embed(colour=RED, title="User has been banned!",
+                                   description=f"{user.mention} has been banned from the server by {ctx.author.mention}"
+                                               f" for **'{reason}'** for {value} {unit}!")
+                em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+                em.set_thumbnail(url=ctx.guild.icon_url)
+                em.timestamp = dt.datetime.utcnow()
+                await ctx.send(embed=em)
+            else:
+                em = discord.Embed(colour=RED, title="User has been banned!",
+                                   description=f"{user.mention} has been banned from the server by {ctx.author.mention}"
+                                               f" **Permanently**")
+                em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+                em.set_thumbnail(url=ctx.guild.icon_url)
+                em.timestamp = dt.datetime.utcnow()
+                await ctx.send(embed=em)
             if value == 0:
                 await ctx.guild.ban(user, reason=reason)
             else:
