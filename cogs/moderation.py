@@ -60,7 +60,7 @@ class moderation(commands.Cog):
                 unit = "seconds"
 
         if isinstance(user, int):
-            person = self.bot.fetch_user(user)
+            person = await self.bot.fetch_user(user)
             await ctx.guild.ban(person, reason=reason)
             await ctx.message.delete(delay=5)
             em = discord.Embed(colour=RED, title="User has been banned!",
