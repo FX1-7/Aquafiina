@@ -20,7 +20,7 @@ perms = [
 async def help_embed(ctx: commands.Context, bot: commands.Bot, command):
     p = ctx.prefix if not mention.match(ctx.prefix) else PREFIX
     em = discord.Embed(colour=MAIN)
-    em.set_thumbnail(url=bot.user.avatar_url)
+    em.set_thumbnail(url=bot.user.avatar.url)
 
     args = command.clean_params  # get the arguments the command takes
     args = " ".join([f"<{x.name.replace('_', ' ')}>" for x in [args[i] for i in args]])  # Join the args together
