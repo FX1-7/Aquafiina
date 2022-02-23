@@ -5,6 +5,11 @@ from datetime import timedelta
 import datetime as dt
 from math import ceil
 
+
+def utc_now():
+    return dt.datetime.now(dt.timezone.utc)
+
+
 def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
     for i in range(0, len(lst), n):
