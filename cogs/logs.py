@@ -194,7 +194,6 @@ class Log(commands.Cog):
             em.timestamp = utc_now()
             await ctx.send(embed=em)
 
-
             error_text = traceback(error)
             # Will send the traceback if we have enough space, otherwise just send what the error was
             content = f"Error in {ctx.message.jump_url}\n```{error_text if len(error_text) < 1500 else error}```"
