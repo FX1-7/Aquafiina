@@ -27,7 +27,7 @@ def _crop(text, chars=2000, border="--Snippet--"):
 
 async def error_embed(ctx, error):
     em = discord.Embed(colour=RED, title=f"⛔ Error: {error}")
-    em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+    em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
     em.timestamp = dt.datetime.utcnow()
     return await ctx.send(embed=em)
 
@@ -51,7 +51,7 @@ class Log(commands.Cog):
         desc = f"🗑️ **Message from {message.author.mention} deleted in {message.channel.mention}**\n" \
                f"{_crop(message.content)}"
         embed = discord.Embed(description=desc, colour=DELETE)
-        embed.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
+        embed.set_author(name=message.author.display_name, icon_url=message.author.avatar.url)
         embed.set_footer(text=f"User ID: {message.author.id}")
         embed.timestamp = dt.datetime.utcnow()
 
@@ -72,7 +72,7 @@ class Log(commands.Cog):
         embed = discord.Embed(colour=EDIT, url=message.jump_url,
                               description=f"✏ **Message from {message.author.mention} edited in "
                                           f"{message.channel.mention}**")
-        embed.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
+        embed.set_author(name=message.author.display_name, icon_url=message.author.avatar.url)
 
         embed.add_field(name="Old", value=_crop(old_message.content, chars=1024), inline=False)
         embed.add_field(name="New", value=_crop(message.content, chars=1024), inline=False)
@@ -90,7 +90,7 @@ class Log(commands.Cog):
 
         if old.display_name != new.display_name:  # if nickname changed
             embed = discord.Embed(colour=NICKNAME, description=f"✏ **{new.mention}'s nickname was changed**")
-            embed.set_author(name=new.display_name, icon_url=new.avatar_url)
+            embed.set_author(name=new.display_name, icon_url=new.avatar.url)
             embed.add_field(name="Old", value=old.display_name, inline=False)
             embed.add_field(name="New", value=new.display_name, inline=False)
             embed.timestamp = dt.datetime.utcnow()
@@ -109,7 +109,7 @@ class Log(commands.Cog):
             # format embed
             embed = discord.Embed(colour=ROLE, description=f"🔰 **Role {aor} {new.mention}**")
             embed.add_field(name="Role:", value=role, inline=False)
-            embed.set_author(name=new.display_name, icon_url=new.avatar_url)
+            embed.set_author(name=new.display_name, icon_url=new.avatar.url)
             embed.timestamp = dt.datetime.utcnow()
 
             await channel.send(embed=embed)
@@ -120,7 +120,7 @@ class Log(commands.Cog):
             return
 
         embed = discord.Embed(colour=JOIN, description=member.mention, title="📥 User Joined")
-        embed.set_author(name=member.display_name, icon_url=member.avatar_url)
+        embed.set_author(name=member.display_name, icon_url=member.avatar.url)
         embed.set_footer(text=f"User ID: {member.id}")
         embed.timestamp = dt.datetime.utcnow()
 
@@ -133,7 +133,7 @@ class Log(commands.Cog):
             return
 
         embed = discord.Embed(colour=LEAVE, description=member.mention, title="📤 User Left")
-        embed.set_author(name=member.display_name, icon_url=member.avatar_url)
+        embed.set_author(name=member.display_name, icon_url=member.avatar.url)
         embed.set_footer(text=f"User ID: {member.id}")
         embed.timestamp = dt.datetime.utcnow()
 
@@ -169,7 +169,7 @@ class Log(commands.Cog):
             time = ceil(error.retry_after)
             em = discord.Embed(colour=RED, title="⛔ Error: Command on cooldown",
                                description=f"Try again in {time} seconds")
-            em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+            em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
             em.timestamp = dt.datetime.utcnow()
             await ctx.reply(embed=em, delete_after=time)
         elif isinstance(error, discord.Forbidden):
@@ -180,7 +180,7 @@ class Log(commands.Cog):
                 try:
                     em = discord.Embed(colour=RED,
                                        title="⛔ Error: I do not have permission to send messages in that channel")
-                    em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+                    em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
                     em.timestamp = dt.datetime.utcnow()
                     await ctx.author.send(embed=em)
                 except discord.DiscordException:
@@ -201,7 +201,7 @@ class Log(commands.Cog):
 
             em = discord.Embed(colour=RED, title=f"⛔ Unknown Error Occurred",
                                description=f"Error Log ID:\n```{entry_id}```\n")
-            em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+            em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
             em.timestamp = dt.datetime.utcnow()
             await ctx.send(embed=em)
             await self.bot.get_channel(LOG_ID).send(embed=em)

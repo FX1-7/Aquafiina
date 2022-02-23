@@ -19,7 +19,7 @@ class Starboard(commands.Cog):
                 print(reaction, reaction.count)
                 em = discord.Embed(colour=MAIN,
                                    description=f"{message.content}")
-                em.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
+                em.set_author(name=message.author.display_name, icon_url=message.author.avatar.url)
                 em.timestamp = dt.datetime.utcnow()
                 await starboard.send(f"A message in <#{channel.id}> was starred!", embed=em)
             else:

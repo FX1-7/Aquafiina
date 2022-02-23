@@ -23,8 +23,8 @@ class moderation(commands.Cog):
 
         em = discord.Embed(colour=RED, title="User has been kicked!",
                            description=f"{user.mention} has been kicked from the server by {ctx.author.mention}")
-        em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-        em.set_thumbnail(url=ctx.guild.icon_url)
+        em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
+        em.set_thumbnail(url=ctx.guild.icon.url)
         em.timestamp = dt.datetime.utcnow()
         await ctx.send(embed=em)
 
@@ -67,16 +67,16 @@ class moderation(commands.Cog):
                 em = discord.Embed(colour=RED, title="User has been banned!",
                                    description=f"{person.mention} has been banned from the server by {ctx.author.mention}"
                                                f" for **'{reason}'** for {value} {unit}!")
-                em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-                em.set_thumbnail(url=ctx.guild.icon_url)
+                em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
+                em.set_thumbnail(url=ctx.guild.icon.url)
                 em.timestamp = dt.datetime.utcnow()
                 await ctx.send(embed=em)
             else:
                 em = discord.Embed(colour=RED, title="User has been banned!",
                                    description=f"{person.mention} has been banned from the server by {ctx.author.mention}"
                                                f" **Permanently!**")
-                em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-                em.set_thumbnail(url=ctx.guild.icon_url)
+                em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
+                em.set_thumbnail(url=ctx.guild.icon.url)
                 em.timestamp = dt.datetime.utcnow()
                 await ctx.send(embed=em)
             if value == 0:
@@ -92,16 +92,16 @@ class moderation(commands.Cog):
                 em = discord.Embed(colour=RED, title="User has been banned!",
                                    description=f"{user.mention} has been banned from the server by {ctx.author.mention}"
                                                f" for **'{reason}'** for {value} {unit}!")
-                em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-                em.set_thumbnail(url=ctx.guild.icon_url)
+                em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
+                em.set_thumbnail(url=ctx.guild.icon.url)
                 em.timestamp = dt.datetime.utcnow()
                 await ctx.send(embed=em)
             else:
                 em = discord.Embed(colour=RED, title="User has been banned!",
                                    description=f"{user.mention} has been banned from the server by {ctx.author.mention}"
                                                f" **Permanently**")
-                em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-                em.set_thumbnail(url=ctx.guild.icon_url)
+                em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
+                em.set_thumbnail(url=ctx.guild.icon.url)
                 em.timestamp = dt.datetime.utcnow()
                 await ctx.send(embed=em)
             if value == 0:
@@ -119,8 +119,8 @@ class moderation(commands.Cog):
         await ctx.guild.unban(member)
         em = discord.Embed(colour=GREEN, title="Success",
                            description=f"{member.name} is now unbanned!")
-        em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-        em.set_thumbnail(url=ctx.guild.icon_url)
+        em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
+        em.set_thumbnail(url=ctx.guild.icon.url)
         em.timestamp = dt.datetime.utcnow()
         await ctx.send(embed=em)
 
@@ -136,16 +136,16 @@ class moderation(commands.Cog):
         if role not in member.roles:
             em = discord.Embed(colour=RED, title="⛔ Error!",
                                description=f"{member.mention} is not muted!")
-            em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-            em.set_thumbnail(url=ctx.guild.icon_url)
+            em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
+            em.set_thumbnail(url=ctx.guild.icon.url)
             em.timestamp = dt.datetime.utcnow()
             await ctx.send(embed=em)
         else:
             await member.remove_roles(role)
             em = discord.Embed(colour=GREEN, title="Success",
                                description=f"{member.mention} is now unmuted!")
-            em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
-            em.set_thumbnail(url=ctx.guild.icon_url)
+            em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
+            em.set_thumbnail(url=ctx.guild.icon.url)
             em.timestamp = dt.datetime.utcnow()
             await ctx.send(embed=em)
 

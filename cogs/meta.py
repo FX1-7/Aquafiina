@@ -52,7 +52,7 @@ async def help_embed(ctx: commands.Context, bot: commands.Bot, command):
                 child.append(f"▫ {p}{parent}{name}")  # append commands
         em.description += "\n".join(sorted(child))
 
-    em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+    em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
     em.timestamp = dt.datetime.utcnow()
     return em
 
@@ -75,7 +75,7 @@ class Help(commands.Cog, name="Meta"):
             emb_template = discord.Embed(colour=MAIN, title="Command List", description="")
             emb_template.set_thumbnail(url=self.bot.user.avatar_url)
             emb_template.set_footer(text=f"Use '{p}help [command]' for more information on a command",
-                                    icon_url=ctx.guild.icon_url)
+                                    icon_url=ctx.guild.icon.url)
             emb_template.timestamp = dt.datetime.utcnow()
             pages = []
 
@@ -131,7 +131,7 @@ class Help(commands.Cog, name="Meta"):
                             break
                     if not page:
                         em = discord.Embed(colour=RED, title=f"⛔ Error: Page/Command Not Found")
-                        em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+                        em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
                         em.timestamp = dt.datetime.utcnow()
                         return await ctx.send(embed=em)
             else:  # No page specified, default to 1st page
@@ -155,7 +155,7 @@ class Help(commands.Cog, name="Meta"):
                 can_run = False
             if not command.enabled or not can_run:
                 em = discord.Embed(colour=RED, title=f"⛔ Error: That Command Isn't Available to You")
-                em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+                em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
                 em.timestamp = dt.datetime.utcnow()
                 return await ctx.send(embed=em)
 
@@ -179,7 +179,7 @@ class Help(commands.Cog, name="Meta"):
         """
         em = discord.Embed(colour=MAIN, title=f"{self.bot.user.name} Info:")
         em.set_thumbnail(url=self.bot.user.avatar_url)
-        em.set_footer(icon_url=ctx.guild.icon_url, text=ctx.guild.name)
+        em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
         em.timestamp = dt.datetime.utcnow()
 
         em.description = f"This bot was created by Keiran#1712 for" \
@@ -192,7 +192,7 @@ class Help(commands.Cog, name="Meta"):
         if message.content == f"<@{self.bot.user.id}>" or message.content == f"<@!{self.bot.user.id}>":
             em = discord.Embed(description=f'My prefix is: `{PREFIX}`, use `{PREFIX}help` to see the commands!',
                                colour=MAIN)
-            em.set_footer(icon_url=message.guild.icon_url, text=message.guild.name)
+            em.set_footer(icon_url=message.guild.icon.url, text=message.guild.name)
             em.timestamp = dt.datetime.utcnow()
             await message.channel.send(embed=em)
 

@@ -1,6 +1,6 @@
 import discord
-import os
 from discord.ext import commands
+import os
 from dotenv import load_dotenv
 from os import getenv
 from config import RED, GREEN, LOG_ID, PREFIX
@@ -11,6 +11,7 @@ import traceback as tb
 load_dotenv()
 
 # Initialise bot
+
 
 # Create custom bot so we can run custom code when the bot is stopped
 class Bot(commands.Bot):
@@ -28,8 +29,8 @@ class Bot(commands.Bot):
         await channel.send(embed=em)
 
 
-intents = discord.Intents(guild_messages=True, guilds=True, members=True, guild_reactions=True)
-bot = Bot(command_prefix=PREFIX, case_insensitive=True, owner_ids=[114352655857483782],
+intents = discord.Intents.all()
+bot = Bot(command_prefix=commands.when_mentioned_or(PREFIX), case_insensitive=True, owner_ids=[114352655857483782],
           allowed_mentions=discord.AllowedMentions(roles=False, everyone=False), intents=intents,
           chunk_guilds_at_startup=False)
 
