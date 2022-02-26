@@ -1,9 +1,8 @@
-discord.py
 python-dotenv
 pyyaml
 psutil
-dnspython
-pymongo
 Pillow
 tweepy
 regex
+aiohttp
+aiosqlite
