@@ -114,7 +114,7 @@ class WelcomeImage(commands.Cog):
         """
         Downloads profile picture as a PNG into a bytes object
         """
-        img = member.avatar_url_as(format="png")
+        img = member.display_avatar
         img = await img.read()
         return img
 
