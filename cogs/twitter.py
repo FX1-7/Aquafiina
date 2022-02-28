@@ -6,6 +6,7 @@ from os import getenv
 import logging
 from config import BLUE, TWITTER_CHANNEL
 import datetime as dt
+import aiosqlite
 
 # Setup logging
 logger = logging.getLogger()
@@ -14,7 +15,7 @@ logger = logging.getLogger()
 load_dotenv()
 
 #  OAuth setting
-auth = tweepy.AppAuthHandler(getenv("CONSUMER_KEY"), getenv("CONSUMER_SECRET"))
+auth = tweepy.OAuth2AppHandler(getenv("CONSUMER_KEY"), getenv("CONSUMER_SECRET"))
 api = tweepy.API(auth, wait_on_rate_limit=True)
 userID = "AquafiinaVT"
 
@@ -64,11 +65,18 @@ class Twitter(commands.Cog):
                     TweetText = TweetText.replace(v, k)
             PfpLink = ScreenName.profile_image_url_https
             channel = self.bot.get_channel(TWITTER_CHANNEL)
-            if TweetID in LatestTweets:
+            async with aiosqlite.connect("data.db") as db:
+                LatestTweets = await db.execute("SELECT TweetID FROM Tweets WHERE TweetID=?", (TweetID,))
+                LatestTweets = await LatestTweets.fetchall()
+                print(LatestTweets)
+            if LatestTweets:
                 print("Skipped an ID!")
-                return
+                continue
             else:
-                LatestTweets.append(TweetID)
+                async with aiosqlite.connect("data.db") as db:
+                    data = (TweetID,)
+                    await db.execute("INSERT INTO Tweets(TweetID) VALUES (?)", data)
+                    await db.commit()
                 print("Added Tweet ID to list")
                 em = discord.Embed(description=f"{TweetText}", colour=BLUE)
                 em.set_author(name=f"{ScreenName.name}", url=f"https://twitter.com/{userID}/status/{TweetID}",
@@ -79,7 +87,6 @@ class Twitter(commands.Cog):
                 em.timestamp = dt.datetime.utcnow()
                 await channel.send(
                     f"@{userID} posted a tweet, check it out: https://twitter.com/{userID}/status/{TweetID}", embed=em)
-
 
 
 def setup(bot):
