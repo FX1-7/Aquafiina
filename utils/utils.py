@@ -37,7 +37,7 @@ class Page:
         if self.footer:
             text = self.footer + "\n" + text
 
-        embed = embed.set_footer(text=text, icon_url=embed.footer.icon.url)
+        embed = embed.set_footer(text=text, icon_url=embed.footer.icon_url)
         return embed
 
     async def update(self):
