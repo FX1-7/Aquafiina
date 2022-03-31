@@ -68,6 +68,9 @@ class Twitter(commands.Cog):
             async with aiosqlite.connect("data.db") as db:
                 LatestTweets = await db.execute("SELECT TweetID FROM Tweets WHERE TweetID=?", (TweetID,))
                 LatestTweets = await LatestTweets.fetchall()
+                Length = await db.execute("SELECT * FROM Tweets")
+                Length = await Length.fetchall()
+                Length = len(list(Length))
                 print(LatestTweets)
             if LatestTweets:
                 print("Skipped an ID!")
@@ -76,6 +79,11 @@ class Twitter(commands.Cog):
                 async with aiosqlite.connect("data.db") as db:
                     data = (TweetID,)
                     await db.execute("INSERT INTO Tweets(TweetID) VALUES (?)", data)
+                    if Length == 10:
+                        await db.execute("DELETE FROM Tweets ORDER BY TweetID ASC LIMIT 1")
+                    else:
+                        Length += 1
+
                     await db.commit()
                 print("Added Tweet ID to list")
                 em = discord.Embed(description=f"{TweetText}", colour=BLUE)
