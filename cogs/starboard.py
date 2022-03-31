@@ -72,7 +72,7 @@ class Cog(commands.Cog):
                     f"{STAR}{count} | Message in {message.channel.mention} by {author.mention} was starred",
                     embed=embed)
 
-                # either add the mesage to the database, otherwise increase the counter by 1
+                # either add the message to the database, otherwise increase the counter by 1
                 async with aiosqlite.connect("data.db") as db:
                     await db.execute("INSERT INTO starmap (Message,Channel,Destination) VALUES (?,?,?)",
                                      (message.id, message.channel.id, msg.id))
