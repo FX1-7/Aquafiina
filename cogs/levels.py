@@ -216,5 +216,5 @@ class Levels(commands.Cog):
         await ctx.send(output)
 
 
-async def setup(bot):
-    await bot.add_cog(Levels(bot))
+def setup(bot):
+    bot.add_cog(Levels(bot))
