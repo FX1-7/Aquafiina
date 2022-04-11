@@ -6,7 +6,7 @@ import config
 COLOUR = discord.Colour(value=config.COLOUR)
 
 def get_guild(bot: commands.Bot):
-    return bot.get_guild(config.SERVER_ID)
+    return bot.get_guild(config.GUILD_ID)
 
 
 def make_bar(num, den, size):
