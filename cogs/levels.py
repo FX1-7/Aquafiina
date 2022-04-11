@@ -63,10 +63,6 @@ class Levels(commands.Cog):
                     fetch[2] -= level_to_xp(fetch[1])  # "purchase" a level using the xp
                     fetch[1] += 1  # add 1 level
 
-                    embed = discord.Embed(colour=COLOUR, description=f"**You have reached level {fetch[1]}**")
-                    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
-                    await ctx.channel.send(ctx.author.mention, embed=embed)
-
                 # level, xp, xp_time, ID
                 # we have added XP, so save timestamp
                 data = (fetch[1], fetch[2], now.isoformat(), fetch[0])
