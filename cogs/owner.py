@@ -9,6 +9,7 @@ import datetime as dt
 import psutil
 import asyncio
 from typing import Union
+import aiosqlite
 
 
 def bytes2human(n, f="%(value).1f%(symbol)s"):
@@ -157,6 +158,14 @@ class Owner(commands.Cog):
         """
          Adds a reaction to a message
         """
+
+    @commands.command()
+    @commands.is_owner()
+    async def TwitterClear(self, ctx):
+        async with aiosqlite.connect("data.db") as db:
+            await db.execute("DELETE FROM Tweets")
+            await db.commit()
+
 
 def setup(bot):
     bot.add_cog(Owner(bot))
