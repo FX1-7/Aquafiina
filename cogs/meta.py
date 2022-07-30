@@ -20,7 +20,7 @@ perms = [
 async def help_embed(ctx: commands.Context, bot: commands.Bot, command):
     p = ctx.prefix if not mention.match(ctx.prefix) else PREFIX
     em = discord.Embed(colour=MAIN)
-    em.set_thumbnail(url=bot.user.avatar.url)
+    em.set_thumbnail(url=bot.user.display_avatar.url)
 
     args = command.clean_params  # get the arguments the command takes
     args = " ".join([f"<{x.name.replace('_', ' ')}>" for x in [args[i] for i in args]])  # Join the args together
@@ -73,7 +73,7 @@ class Help(commands.Cog, name="Meta"):
         if not command or not self.bot.get_command(command):  # if no argument provided or not a command
 
             emb_template = discord.Embed(colour=MAIN, title="Command List", description="")
-            emb_template.set_thumbnail(url=self.bot.user.avatar.url)
+            emb_template.set_thumbnail(url=self.bot.user.display_avatar.url)
             emb_template.set_footer(text=f"Use '{p}help [command]' for more information on a command",
                                     icon_url=ctx.guild.icon.url)
             emb_template.timestamp = dt.datetime.utcnow()
@@ -178,7 +178,7 @@ class Help(commands.Cog, name="Meta"):
         Displays information about the bot
         """
         em = discord.Embed(colour=MAIN, title=f"{self.bot.user.name} Info:")
-        em.set_thumbnail(url=self.bot.user.avatar.url)
+        em.set_thumbnail(url=self.bot.user.display_avatar.url)
         em.set_footer(icon_url=ctx.guild.icon.url, text=ctx.guild.name)
         em.timestamp = dt.datetime.utcnow()
 

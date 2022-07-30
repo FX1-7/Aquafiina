@@ -63,7 +63,7 @@ class Cog(commands.Cog):
                 author = message.author
                 link = message.jump_url
                 embed = discord.Embed(description=message.content, colour=COLOUR)
-                embed.set_author(name=author.display_name, icon_url=author.avatar.url)
+                embed.set_author(name=author.display_name, icon_url=author.display_avatar.url)
                 embed.add_field(name="Details", value=f"[LINK]({link})")
 
                 if message.attachments:  # insert image from message, if it exists

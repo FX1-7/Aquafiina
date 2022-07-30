@@ -6,3 +6,4 @@ tweepy
 regex
 aiohttp
 aiosqlite
+py-cord
