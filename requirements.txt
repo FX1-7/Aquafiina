@@ -6,4 +6,4 @@ tweepy
 regex
 aiohttp
 aiosqlite
-py-cord
+py-cord~=2.0.0

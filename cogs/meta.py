@@ -1,5 +1,5 @@
-from discord.ext import commands
 import discord
+from discord.ext import commands
 from utils.utils import Page, chunks
 from config import MAIN, RED, PREFIX, GUILD_ID
 import datetime as dt
