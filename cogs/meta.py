@@ -1,7 +1,7 @@
 from discord.ext import commands
 import discord
 from utils.utils import Page, chunks
-from config import MAIN, RED, PREFIX
+from config import MAIN, RED, PREFIX, GUILD_ID
 import datetime as dt
 import re
 from time import perf_counter
@@ -196,8 +196,7 @@ class Help(commands.Cog, name="Meta"):
             em.timestamp = dt.datetime.utcnow()
             await message.channel.send(embed=em)
 
-    @commands.command()
-    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    @discord.slash_command(guild_ids=[GUILD_ID])
     async def ping(self, ctx):
         """
         Ping!
